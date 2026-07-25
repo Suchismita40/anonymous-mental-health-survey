@@ -76,15 +76,25 @@ In `contracts/hello-world.compact`:
 - **Docker**: Docker Engine & Docker Compose v2 (`docker compose version`).
 - **Compact Compiler**: `compact 0.5.1` (`compact --version`).
 
-### 1. Installation
+### 🚀 Local Development Quickstart (Windows + WSL Ubuntu + Chrome)
+
+To run the complete dApp locally in 4 simple commands:
 
 ```bash
-# Install root dependencies
+# 1. Install dependencies
 npm install
 
-# Install web frontend dependencies
-cd frontend && npm install && cd ..
+# 2. Compile Compact contract
+npm run compile
+
+# 3. Setup local devnet & deploy contract
+npm run setup -- --network undeployed
+
+# 4. Launch web application in Google Chrome
+npm run dev
 ```
+
+Application will open at **`http://localhost:3000`**.
 
 ### 2. Contract Compilation
 

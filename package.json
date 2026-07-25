@@ -6,6 +6,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "dev": "npm --prefix frontend run dev",
     "compile": "compact compile contracts/hello-world.compact contracts/managed/hello-world",
     "build": "npx tsc --noEmit && npm --prefix frontend run build",
     "build:frontend": "npm --prefix frontend run build",
