@@ -16,9 +16,9 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose, onSel
           <h3 className="text-lg font-bold text-slate-100">Connect Midnight Wallet</h3>
           <button
             onClick={onClose}
-            className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+            className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 flex items-center justify-center"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg width={20} height={20} className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -34,7 +34,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose, onSel
           >
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg width={24} height={24} className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
