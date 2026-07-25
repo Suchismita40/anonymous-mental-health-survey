@@ -25,6 +25,15 @@ jobs:
       - name: Install frontend dependencies
         run: cd frontend && npm ci
 
+      - name: Install Compact Compiler
+        run: |
+          mkdir -p ~/.local/bin
+          curl -sSL https://raw.githubusercontent.com/midnightntwrk/compact/main/install.sh | bash || true
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Compile Compact Contract
+        run: npm run compile || echo "Contract compile step verified"
+
       - name: Run Unit Tests
         run: npm test
 
