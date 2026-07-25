@@ -1,0 +1,61 @@
+pragma language_version >= 0.23;
+
+import CompactStandardLibrary;
+
+// Public ledger state - aggregate statistics for anonymous mental health survey
+export ledger totalSubmissions: Uint<32>;
+export ledger totalMoodScore: Uint<64>;
+export ledger totalAnxietyScore: Uint<64>;
+export ledger totalStressScore: Uint<64>;
+export ledger lowRiskCount: Uint<32>;
+export ledger moderateRiskCount: Uint<32>;
+export ledger highRiskCount: Uint<32>;
+export ledger isSurveyActive: Boolean;
+
+constructor() {
+    isSurveyActive = true;
+    totalSubmissions = 0;
+    totalMoodScore = 0;
+    totalAnxietyScore = 0;
+    totalStressScore = 0;
+    lowRiskCount = 0;
+    moderateRiskCount = 0;
+    highRiskCount = 0;
+}
+
+// Circuit to submit an anonymous mental health survey response
+// Individual answers (mood, anxiety, stress ratings 1-5) are checked for validity
+// and incorporated into public aggregate counters via ZK proofs.
+export circuit submitSurveyResponse(
+    moodScore: Uint<8>,
+    anxietyScore: Uint<8>,
+    stressScore: Uint<8>
+): [] {
+    assert(isSurveyActive, "Survey is currently closed");
+    assert(moodScore >= 1 && moodScore <= 5, "Mood score must be between 1 and 5");
+    assert(anxietyScore >= 1 && anxietyScore <= 5, "Anxiety score must be between 1 and 5");
+    assert(stressScore >= 1 && stressScore <= 5, "Stress score must be between 1 and 5");
+
+    const mood = disclose(moodScore);
+    const anxiety = disclose(anxietyScore);
+    const stress = disclose(stressScore);
+
+    totalSubmissions = (totalSubmissions + 1) as Uint<32>;
+    totalMoodScore = (totalMoodScore + (mood as Uint<64>)) as Uint<64>;
+    totalAnxietyScore = (totalAnxietyScore + (anxiety as Uint<64>)) as Uint<64>;
+    totalStressScore = (totalStressScore + (stress as Uint<64>)) as Uint<64>;
+
+    const compositeScore = (mood as Uint<16>) + (anxiety as Uint<16>) + (stress as Uint<16>);
+    if (compositeScore <= 6) {
+        lowRiskCount = (lowRiskCount + 1) as Uint<32>;
+    } else if (compositeScore <= 10) {
+        moderateRiskCount = (moderateRiskCount + 1) as Uint<32>;
+    } else {
+        highRiskCount = (highRiskCount + 1) as Uint<32>;
+    }
+}
+
+// Circuit to set survey status (open / closed)
+export circuit setSurveyActive(active: Boolean): [] {
+    isSurveyActive = disclose(active);
+}
