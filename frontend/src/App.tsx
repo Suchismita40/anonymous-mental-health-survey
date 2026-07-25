@@ -3,10 +3,51 @@ import { Navbar } from './components/Navbar';
 import { SurveyForm } from './components/SurveyForm';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { PrivacyCard } from './components/PrivacyCard';
-import { AggregateAnalytics, SurveyResponseInput, TransactionReceipt, WalletState } from './types';
+import { SurveyHistory } from './components/SurveyHistory';
+import { WellnessRecommendations } from './components/WellnessRecommendations';
+import {
+  AggregateAnalytics,
+  SurveyHistoryEntry,
+  SurveyResponseInput,
+  TransactionReceipt,
+  WalletState,
+} from './types';
 
-const DEFAULT_CONTRACT = import.meta.env.VITE_CONTRACT_ADDRESS || '02008f1b212f451f28b49af19d9b4b986cc0bf5d61bbd5cfa3fdfebef501f2f0fcdd';
+const DEFAULT_CONTRACT =
+  import.meta.env.VITE_CONTRACT_ADDRESS ||
+  '02008f1b212f451f28b49af19d9b4b986cc0bf5d61bbd5cfa3fdfebef501f2f0fcdd';
 const DEFAULT_NETWORK = import.meta.env.VITE_NETWORK || 'undeployed';
+
+const INITIAL_HISTORY: SurveyHistoryEntry[] = [
+  {
+    id: 'SURVEY-94A2B8',
+    timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
+    formattedDate: new Date(Date.now() - 3600000 * 2).toLocaleString('en-US', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }),
+    riskCategory: 'Moderate Risk',
+    compositeScore: 9,
+    zkStatus: 'Verified',
+    networkStatus: 'Confirmed',
+    txHash: '0x3f8a91b2c4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1',
+    blockHeight: 38,
+  },
+  {
+    id: 'SURVEY-3E8F1C',
+    timestamp: new Date(Date.now() - 3600000 * 24).toISOString(),
+    formattedDate: new Date(Date.now() - 3600000 * 24).toLocaleString('en-US', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }),
+    riskCategory: 'Low Risk',
+    compositeScore: 5,
+    zkStatus: 'Verified',
+    networkStatus: 'Confirmed',
+    txHash: '0x7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d7c6',
+    blockHeight: 24,
+  },
+];
 
 export const App: React.FC = () => {
   const [wallet, setWallet] = useState<WalletState>({
@@ -18,22 +59,49 @@ export const App: React.FC = () => {
   });
 
   const [analytics, setAnalytics] = useState<AggregateAnalytics>({
-    totalSubmissions: 1,
-    avgMood: 4.0,
-    avgAnxiety: 2.0,
-    avgStress: 3.0,
-    lowRiskCount: 0,
-    moderateRiskCount: 1,
+    totalSubmissions: 3,
+    avgMood: 3.67,
+    avgAnxiety: 2.33,
+    avgStress: 2.67,
+    lowRiskCount: 1,
+    moderateRiskCount: 2,
     highRiskCount: 0,
     isSurveyActive: true,
   });
 
   const [isLoadingAnalytics, setIsLoadingAnalytics] = useState<boolean>(false);
 
+  // Active Navigation Tab
+  const [activeTab, setActiveTab] = useState<'survey' | 'history' | 'wellness'>('survey');
+
+  // History State
+  const [history, setHistory] = useState<SurveyHistoryEntry[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('midnight_survey_history');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return INITIAL_HISTORY;
+        }
+      }
+    }
+    return INITIAL_HISTORY;
+  });
+
+  const [latestSubmission, setLatestSubmission] = useState<SurveyHistoryEntry | null>(
+    history.length > 0 ? history[0] : null
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('midnight_survey_history', JSON.stringify(history));
+    }
+  }, [history]);
+
   const fetchAnalytics = async () => {
     setIsLoadingAnalytics(true);
     try {
-      // Query local devnet indexer
       const indexerUrl = 'http://127.0.0.1:8088/api/v4/graphql';
       const response = await fetch(indexerUrl, {
         method: 'POST',
@@ -54,7 +122,6 @@ export const App: React.FC = () => {
       if (response.ok) {
         const json = await response.json();
         if (json.data?.contractState?.data) {
-          // If contract state returned from indexer, parse state
           console.log('Contract state loaded from indexer:', json.data.contractState);
         }
       }
@@ -88,11 +155,18 @@ export const App: React.FC = () => {
   };
 
   const handleSubmitResponse = async (input: SurveyResponseInput): Promise<TransactionReceipt> => {
-    // Calculate composite score
     const compositeScore = input.moodScore + input.anxietyScore + input.stressScore;
 
-    // Simulate ZK proof computation and circuit execution delay
-    await new Promise((r) => setTimeout(r, 2000));
+    // Determine risk category
+    let category: 'Low Risk' | 'Moderate Risk' | 'High Risk' = 'Low Risk';
+    if (compositeScore >= 7 && compositeScore <= 10) {
+      category = 'Moderate Risk';
+    } else if (compositeScore > 10) {
+      category = 'High Risk';
+    }
+
+    // ZK proof delay simulation
+    await new Promise((r) => setTimeout(r, 1800));
 
     // Update aggregate analytics state
     setAnalytics((prev) => {
@@ -121,11 +195,36 @@ export const App: React.FC = () => {
       };
     });
 
-    const mockTxId = Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    const mockTxId = Array.from({ length: 64 }, () =>
+      Math.floor(Math.random() * 16).toString(16)
+    ).join('');
+    const newBlockHeight = 42 + Math.floor(Math.random() * 5);
+
+    const now = new Date();
+    const newId = `SURVEY-${Math.random().toString(16).substring(2, 8).toUpperCase()}`;
+
+    const newHistoryEntry: SurveyHistoryEntry = {
+      id: newId,
+      timestamp: now.toISOString(),
+      formattedDate: now.toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }),
+      riskCategory: category,
+      compositeScore,
+      zkStatus: 'Verified',
+      networkStatus: 'Confirmed',
+      txHash: `0x${mockTxId}`,
+      blockHeight: newBlockHeight,
+    };
+
+    setHistory((prev) => [newHistoryEntry, ...prev]);
+    setLatestSubmission(newHistoryEntry);
+
     return {
       txId: mockTxId,
-      blockHeight: 35 + Math.floor(Math.random() * 10),
-      timestamp: new Date().toISOString(),
+      blockHeight: newBlockHeight,
+      timestamp: now.toISOString(),
     };
   };
 
@@ -151,7 +250,7 @@ export const App: React.FC = () => {
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-semibold">
               <span className="h-2 w-2 rounded-full bg-purple-400 animate-ping"></span>
-              Midnight Zero-Knowledge Protocol
+              Midnight Zero-Knowledge Protocol v4.1.1
             </div>
             <h1 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
               Confidential Mental Health Assessment & Analytics
@@ -171,23 +270,93 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Main Grid: Form + Analytics */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <SurveyForm
-            isSurveyActive={analytics.isSurveyActive}
-            onSubmitResponse={handleSubmitResponse}
-          />
+        {/* Navigation Tabs Bar */}
+        <div className="flex items-center gap-2 p-1.5 bg-slate-900/90 border border-slate-800 rounded-2xl overflow-x-auto">
+          <button
+            onClick={() => setActiveTab('survey')}
+            className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+              activeTab === 'survey'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 border border-purple-400/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+            }`}
+          >
+            <svg width={18} height={18} className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span>Survey & Analytics</span>
+          </button>
 
-          <AnalyticsDashboard
-            analytics={analytics}
-            isLoading={isLoadingAnalytics}
-            onRefresh={fetchAnalytics}
-            onToggleStatus={handleToggleStatus}
-          />
+          <button
+            onClick={() => setActiveTab('history')}
+            className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap relative ${
+              activeTab === 'history'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 border border-purple-400/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+            }`}
+          >
+            <svg width={18} height={18} className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Anonymous Survey History</span>
+            <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded-full bg-purple-950 text-purple-300 border border-purple-700/50">
+              {history.length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('wellness')}
+            className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+              activeTab === 'wellness'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 border border-purple-400/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+            }`}
+          >
+            <svg width={18} height={18} className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <span>Personalised Wellness Recommendations</span>
+          </button>
         </div>
 
-        {/* Privacy Model Assurance */}
-        <PrivacyCard />
+        {/* Tab Content Display */}
+        {activeTab === 'survey' && (
+          <div className="space-y-8 animate-fade-in">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <SurveyForm
+                isSurveyActive={analytics.isSurveyActive}
+                onSubmitResponse={handleSubmitResponse}
+              />
+
+              <AnalyticsDashboard
+                analytics={analytics}
+                isLoading={isLoadingAnalytics}
+                onRefresh={fetchAnalytics}
+                onToggleStatus={handleToggleStatus}
+              />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'history' && (
+          <div className="animate-fade-in">
+            <SurveyHistory
+              history={history}
+              onSelectEntryForRecommendation={(entry) => {
+                setLatestSubmission(entry);
+                setActiveTab('wellness');
+              }}
+            />
+          </div>
+        )}
+
+        {activeTab === 'wellness' && (
+          <div className="animate-fade-in">
+            <WellnessRecommendations latestEntry={latestSubmission} />
+          </div>
+        )}
+
+        {/* Always Visible Components */}
+        {activeTab === 'survey' && <PrivacyCard />}
       </main>
 
       {/* Footer */}

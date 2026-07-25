@@ -28,3 +28,16 @@ export interface TransactionReceipt {
   blockHeight: number;
   timestamp: string;
 }
+
+export interface SurveyHistoryEntry {
+  id: string;
+  timestamp: string;
+  formattedDate: string;
+  riskCategory: 'Low Risk' | 'Moderate Risk' | 'High Risk';
+  compositeScore: number;
+  zkStatus: 'Verified' | 'Pending';
+  networkStatus: 'Confirmed' | 'Pending';
+  txHash: string;
+  blockHeight: number;
+}
+

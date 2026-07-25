@@ -1,52 +1,93 @@
 # Anonymous Mental Health Survey
 
-> **Midnight Level 3 dApp Submission** | Zero-Knowledge Privacy-Preserving Health Analytics & Feedback Platform  
+> **Midnight Protocol Application** | Zero-Knowledge Privacy-Preserving Health Analytics & Feedback Platform  
 > Built with Compact Smart Contracts + Midnight JS SDK + React + TypeScript + Glassmorphism Design System
 
 [![Midnight Protocol](https://img.shields.io/badge/Midnight-Protocol%20v4.1.1-7c3aed.svg)](https://midnight.network)
 [![Compact Compiler](https://img.shields.io/badge/Compact-v0.5.1-6366f1.svg)](https://github.com/midnightntwrk/compact)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD-Passing-emerald.svg)](https://github.com/Suchismita40/anonymous-mental-health-survey/actions)
-[![Level 3 Submission](https://img.shields.io/badge/Midnight%20Submission-Level%203-purple.svg)](#midnight-level-3-compliance)
 
 ---
 
-## Project Overview
+# Project Overview
 
-**Anonymous Mental Health Survey** is a full-stack, Zero-Knowledge privacy-preserving healthcare analytics application built on the **Midnight Network**. 
+**Anonymous Mental Health Survey** is a full-stack, Zero-Knowledge privacy-preserving healthcare analytics application built on the **Midnight Network**.
 
-It allows individuals to submit confidential mental health assessments (Mood, Anxiety, and Stress scores rated 1–5) with absolute privacy guarantees. Using Midnight's Compact smart contract toolchain, individual score entries remain encrypted inside local client witness state. Zero-Knowledge proofs are generated client-side to assert score validity (1..5) and update public aggregate statistics on-chain—without disclosing participant identity or individual answers.
+It allows individuals to submit confidential mental health assessments (Mood, Anxiety, and Stress scores rated 1–5) with complete privacy guarantees. Using Midnight's Compact smart contract toolchain, individual score entries remain encrypted inside local client witness state. Zero-Knowledge proofs are generated client-side to assert score validity (1..5) and update public aggregate statistics on-chain—without disclosing participant identity, wallet address, or individual answers.
+
+---
+
+# Application Preview
+
+## Landing Page
+
+<p align="center">
+  <img src="assets/landing-page.png" alt="Landing Page Dashboard" width="100%">
+</p>
+
+The landing dashboard introduces the Anonymous Mental Health Survey platform built on Midnight Protocol. It provides a privacy-first environment where users can confidentially submit mental health assessments while Zero-Knowledge Proofs ensure that only anonymous aggregate insights are published without revealing individual responses.
+
+---
+
+## Survey History
+
+<p align="center">
+  <img src="assets/survey-history.png" alt="Anonymous Survey History" width="100%">
+</p>
+
+The Anonymous Survey History dashboard securely displays previous anonymous survey sessions using privacy-preserving identifiers. Users can review risk summaries, Zero-Knowledge verification status, ledger confirmations, and downloadable proof receipts without exposing any personal information or survey responses.
+
+---
+
+## Personalised Wellness Recommendations
+
+<p align="center">
+  <img src="assets/wellness-recommendations.png" alt="Personalised Wellness Recommendations" width="100%">
+</p>
+
+The Personalised Wellness Recommendations page generates tailored wellbeing guidance based solely on the anonymous risk category calculated from the survey. Recommendations are produced locally without storing or revealing personal responses, demonstrating confidential healthcare analytics powered by Midnight Protocol.
+
+---
+
+# 🎥 Live Demo
+
+Watch the complete demonstration of the Anonymous Mental Health Survey platform powered by Midnight Protocol. The demonstration showcases confidential survey submission, Zero-Knowledge proof generation, anonymous survey history, personalised wellness recommendations, and privacy-preserving healthcare analytics.
+
+▶ **[Watch the complete project demonstration on YouTube](https://youtu.be/BSLeDq4-OzA)**
 
 ---
 
 ## Problem Statement
 
-Mental health surveys conducted in workplaces, academic institutions, and medical environments suffer from severe underreporting, inaccurate self-assessments, and low participation rates due to:
+Mental health surveys conducted in corporate, academic, and medical environments suffer from severe underreporting and low participation due to fundamental privacy concerns:
 
-1. **Fear of Identity Exposure**: Participants worry their private scores could be traced back to their IP addresses, wallet addresses, or user profiles.
-2. **Data Centralization Risks**: Centralized databases storing mental health records present significant honey-pots for data breaches and unauthorized access.
-3. **Lack of Trust in Anonymity Claims**: Traditional web surveys claim anonymity but maintain server logs and database records capable of deanonymizing participants.
+1. **Identity Exposure Risk**: Participants fear that private rating scores could be traced to their IP addresses, wallet keys, or user accounts.
+2. **Data Centralization Vulnerabilities**: Centralized databases containing mental health records present lucrative targets for data breaches and unauthorized access.
+3. **Lack of Verifiable Anonymity**: Traditional web forms claim anonymity but maintain server logs and database records capable of deanonymizing participants.
 
 ---
 
-## Solution
+## Solution Overview
 
-The **Anonymous Mental Health Survey dApp** eliminates the privacy trade-off using Midnight Protocol's Zero-Knowledge technology:
+The **Anonymous Mental Health Survey dApp** addresses these privacy challenges using Midnight Protocol's Zero-Knowledge technology:
 
-- 🔒 **Local Witness Execution**: All private score inputs remain exclusively inside local browser memory.
-- ⚡ **Zero-Knowledge Circuit Proofs**: Compact circuits execute locally, generating cryptographic ZK proofs that prove scores are within valid ranges (1 to 5) and categorized correctly without exposing exact rating values.
-- 📊 **Verifiable On-Chain Aggregates**: The public blockchain ledger records only cumulative score sums and risk category counters (+1), serving transparent analytics while preserving participant anonymity.
+- 🔒 **Local Witness Execution**: All private rating choices remain strictly inside local browser memory.
+- ⚡ **Zero-Knowledge Circuit Proofs**: Compact circuits execute locally, generating cryptographic ZK proofs that verify scores fall within valid bounds (1 to 5) and fall into designated risk categories—without disclosing exact rating values.
+- 📊 **Verifiable On-Chain Aggregates**: The public blockchain ledger updates cumulative score totals and risk category counters (+1), serving transparent public analytics while preserving participant anonymity.
 
 ---
 
 ## Key Features
 
-- 🛡️ **Zero-Knowledge Confidentiality**: Individual rating scores are never written to the blockchain.
+- 🛡️ **Zero-Knowledge Confidentiality**: Individual rating scores (Mood, Anxiety, Stress) are never written to the blockchain.
 - 🧮 **Automated Risk Index Calculation**: Local witness logic computes composite risk scores (3 to 15) and categorizes responses into Low Risk (3–6), Moderate Risk (7–10), and High Risk (11–15).
+- 📜 **Anonymous Session History**: Saves anonymous survey sessions locally with privacy-safe identifiers, ZK verification status, ledger height, and downloadable JSON proof receipts.
+- 🧘 **Personalised Wellness Guidance**: Generates category-tailored mental health guidance locally, complete with an interactive 4-7-8 guided breathing timer and 24/7 crisis support hotlines.
 - 🔗 **Lace Wallet & Midnight SDK Integration**: Full browser extension wallet support with balance display, network badges, and account state management.
-- 📈 **Real-Time Indexer Analytics**: Public analytics dashboard fetching live aggregate metrics via Midnight GraphQL Indexer subscriptions.
-- 🛠️ **Administrative Control**: Circuit-level survey status controls (`isSurveyActive`) allowing administrators to open or pause submissions on-chain.
-- 🌌 **Glassmorphism Dark UI**: Modern dark theme design system built with custom CSS utilities and responsive layout.
+- 📈 **Real-Time Indexer Analytics**: Public analytics dashboard querying live aggregate metrics via Midnight GraphQL Indexer subscriptions.
+- 🛠️ **Administrative Circuit Control**: Smart contract status flag (`isSurveyActive`) allowing administrators to open or pause submissions on-chain.
+- 🌌 **Glassmorphism Dark UI**: Modern dark theme design system built with custom CSS utilities and responsive layouts.
 
 ---
 
@@ -55,13 +96,13 @@ The **Anonymous Mental Health Survey dApp** eliminates the privacy trade-off usi
 | Component | Technology | Version | Purpose |
 |---|---|---|---|
 | **Blockchain** | Midnight Network | v4.1.1 | Confidential Smart Contract Ledger |
-| **Smart Contract** | Compact | v0.5.1 / 0.31.1 | Zero-Knowledge Circuit Language |
-| **Client SDK** | `@midnight-ntwrk/midnight-js-*` | 4.1.1 | Proof generation & Indexer API Client |
+| **Smart Contract** | Compact | v0.5.1 | Zero-Knowledge Circuit Language |
+| **Client SDK** | `@midnight-ntwrk/midnight-js-*` | 4.1.1 | Proof Generation & Indexer API Client |
 | **Wallet SDK** | `@midnight-ntwrk/wallet-sdk` | 1.2.0 | Lace Wallet Connection & Account Sync |
 | **Frontend Framework** | React + Vite | React 18 / Vite 5 | Reactive User Interface |
 | **Type Safety** | TypeScript | v5.x / v6.x | End-to-End Type Safety |
-| **Local Devnet** | Docker & Docker Compose | Engine 29.x / Compose v5 | Local Node, Indexer & Proof Server |
-| **CI/CD** | GitHub Actions | v4 | Automated Build, Test & Verification |
+| **Local Devnet** | Docker & Docker Compose | Compose v2 | Local Node, Indexer & Proof Server |
+| **CI/CD** | GitHub Actions | v4 | Automated Build & Test Pipeline |
 
 ---
 
@@ -69,7 +110,7 @@ The **Anonymous Mental Health Survey dApp** eliminates the privacy trade-off usi
 
 ```
                                   ┌────────────────────────────────────────┐
-                                  │           User Browser / CLI           │
+                                  │           User Browser / Client        │
                                   │  - Mood / Anxiety / Stress Ratings (1-5)│
                                   │  - Local Private Witness Computation   │
                                   └───────────────────┬────────────────────┘
@@ -84,7 +125,7 @@ The **Anonymous Mental Health Survey dApp** eliminates the privacy trade-off usi
                                                       │ (Submit Proof & Disclosures)
                                                       ▼
                                   ┌────────────────────────────────────────┐
-                                  │        Midnight Node & Substrate       │
+                                  │        Midnight Node & Ledger          │
                                   │  - Enforces Contract State Transition  │
                                   │  - Discloses aggregate counts & sums   │
                                   └───────────────────┬────────────────────┘
@@ -99,10 +140,10 @@ The **Anonymous Mental Health Survey dApp** eliminates the privacy trade-off usi
 
 The system strictly decouples **private local witness state** from **public on-chain disclosures**:
 
-1. **User Client**: Selects ratings (Mood 1-5, Anxiety 1-5, Stress 1-5). Inputs are stored in local witness memory.
+1. **User Client**: Selects ratings (Mood 1–5, Anxiety 1–5, Stress 1–5). Inputs reside exclusively in local witness memory.
 2. **Proof Generation**: The client interacts with the local `proof-server` (port 6300) to build a Zero-Knowledge proof.
-3. **Ledger Execution**: Midnight Node verifies the ZK proof and updates public aggregate metrics.
-4. **Indexer Querying**: Web UI subscribes to GraphQL Indexer endpoints (port 8088) for real-time reporting.
+3. **Ledger Execution**: The Midnight Node verifies the ZK proof and updates public aggregate metrics.
+4. **Indexer Querying**: The frontend subscribes to GraphQL Indexer endpoints (port 8088) for real-time analytics reporting.
 
 ---
 
@@ -120,7 +161,7 @@ The following variables are publicly readable on the Midnight ledger:
 | `lowRiskCount` | `Uint<32>` | Aggregate count of responses categorized as Low Risk (Score 3–6). |
 | `moderateRiskCount` | `Uint<32>` | Aggregate count of responses categorized as Moderate Risk (Score 7–10). |
 | `highRiskCount` | `Uint<32>` | Aggregate count of responses categorized as High Risk (Score 11–15). |
-| `isSurveyActive` | `Boolean` | Administrative flag controlling whether submissions are open or paused. |
+| `isSurveyActive` | `Boolean` | Administrative flag controlling whether survey submissions are open or paused. |
 
 ### Private Witness State (100% Confidential)
 The following attributes remain confidential inside local client memory:
@@ -131,92 +172,54 @@ The following attributes remain confidential inside local client memory:
 
 ### Deliberate Disclosures (`disclose()` Usage)
 In `contracts/hello-world.compact`, `disclose()` is invoked intentionally and strictly for:
-- `disclose(moodScore)` & `disclose(anxietyScore)` & `disclose(stressScore)`: Disclosing that public aggregate score sums and category counters (+1) are incremented upon valid ZK proof submission.
+- `disclose(moodScore)` & `disclose(anxietyScore)` & `disclose(stressScore)`: Disclosing public aggregate score sums and risk category counters (+1) upon valid ZK proof submission.
 - `disclose(active)`: Disclosing administrative state changes when toggling survey status.
 
 ---
 
-## Landing Page
+## Smart Contract Overview
 
-![Landing Page](assets/landing-page.png)
+The Compact smart contract (`contracts/hello-world.compact`) defines the state transitions and Zero-Knowledge circuit logic:
 
-*Figure 1: Anonymous Mental Health Survey Landing Page interface featuring Lace Wallet connection, live risk category preview (Moderate Risk 7/15), and 1–5 score input sliders for Mood, Anxiety, and Stress ratings.*
-
-The **Landing Page** serves as the primary entry point where participants anonymously submit their health ratings. It features:
-- **Navigation Bar**: Shows network status (`undeployed`), contract address, Bech32 wallet address, and balance.
-- **Hero Overview**: Explains Midnight Network's Zero-Knowledge confidential execution model.
-- **Interactive Score Selector**: Allows participants to select Mood (1-5), Anxiety (1-5), and Stress (1-5) ratings.
-- **Live Risk Category Preview**: Automatically computes composite risk category (Low, Moderate, High) in real time before submission.
-- **Zero-Knowledge Submit Action**: Triggers local ZK proof generation and registers response on-chain.
+- **Circuit `submitResponse`**: Takes private inputs (`moodScore`, `anxietyScore`, `stressScore`), asserts that each score is between 1 and 5, calculates the composite index, increments the corresponding risk counter (`lowRiskCount`, `moderateRiskCount`, or `highRiskCount`), and adds score values to public aggregate sums.
+- **Circuit `toggleSurveyStatus`**: Administrative circuit allowing authorized status toggles for survey availability.
 
 ---
 
-## Report Page
+## Frontend Overview
 
-![Report Page](assets/report-page.png)
+The web application is located in `frontend/` and built with React 18, Vite 5, TypeScript, and custom CSS:
 
-*Figure 2: Public Ledger Analytics Report interface displaying real-time aggregate statistics, total response counter, average score meters, survey status toggle button, and risk distribution progress bars.*
-
-The **Report Page** displays public aggregate insights while ensuring participant confidentiality through Midnight Protocol's ZK execution model. Key sections include:
-- **Survey Status Indicator**: Shows whether the survey is 🟢 OPEN or 🔴 CLOSED, with administrative status controls.
-- **Total Submissions Counter**: Displays total anonymous ZK proof responses submitted to the contract.
-- **Average Rating Gauges**: Visual meters showing average Mood (3/5.0), Anxiety (2/5.0), and Stress (3/5.0) ratings.
-- **Risk Category Distribution**: Visual progress bars representing the percentage breakdown across Low Risk, Moderate Risk, and High Risk categories.
+- **`Navbar.tsx`**: Network state badge, deployed contract address preview, and Lace Wallet connection control.
+- **`SurveyForm.tsx`**: Interactive score selectors (1–5 sliders for Mood, Anxiety, Stress), real-time composite risk category preview, and ZK proof submission triggers.
+- **`AnalyticsDashboard.tsx`**: Real-time aggregate score meters, total response counter, and risk breakdown charts querying the Midnight GraphQL Indexer.
+- **`SurveyHistory.tsx`**: Session log history displaying anonymous survey receipts, search/filter controls, proof modal summaries, and JSON receipt downloads.
+- **`WellnessRecommendations.tsx`**: Category-specific wellness guidance, interactive 4-7-8 breathing timer widget, emergency crisis contact details, and explicit privacy disclaimers.
 
 ---
 
-## Running Locally
-
-### Prerequisites
-- **OS**: Windows 11 with WSL Ubuntu (Linux x86_64).
-- **Node.js**: Node v22.0.0+ (`node -v`).
-- **npm**: npm v10+ (`npm -v`).
-- **Docker**: Docker Desktop with Docker Compose v2 (`docker compose version`).
-- **Compact Compiler**: `compact 0.5.1` at `/home/<user>/.local/bin/compact`.
-
-### Quickstart (4 Simple Commands)
-
-To run the complete dApp locally:
-
-```bash
-# 1. Install dependencies
-npm install
-
-# 2. Compile Compact contract
-npm run compile
-
-# 3. Setup local devnet & deploy contract
-npm run setup -- --network undeployed
-
-# 4. Launch web application in Google Chrome
-npm run dev
-```
-
-Application will open at **`http://localhost:3000`**.
-
----
-
-## Project Structure
+## Repository Structure
 
 ```
 anonymous-mental-health-survey/
-├── assets/                        # Documentation images & screenshots
+├── assets/                        # Architecture diagrams & application screenshots
 │   ├── landing-page.png           # Landing page screenshot
-│   └── report-page.png            # Report analytics page screenshot
+│   ├── survey-history.png         # Anonymous survey history screenshot
+│   └── wellness-recommendations.png # Personalised wellness recommendations screenshot
 ├── contracts/
 │   ├── hello-world.compact        # Compact ZK smart contract source
-│   └── managed/                   # Pre-compiled ZK circuits & TS bindings
+│   └── managed/                   # Compiled ZK circuits & TS bindings
 │       └── hello-world/
 │           ├── compiler/          # Contract info metadata
-│           ├── contract/          # Generated TS interfaces (index.d.ts, index.js)
+│           ├── contract/          # Generated TS interfaces
 │           ├── keys/              # Prover & Verifier keys
 │           └── zkir/              # ZK Intermediate Representation files
-├── frontend/                      # Full-stack Vite + React Web Application
+├── frontend/                      # Vite + React Web Application
 │   ├── src/
-│   │   ├── components/            # Navbar, SurveyForm, AnalyticsDashboard, PrivacyCard, WalletModal
+│   │   ├── components/            # SurveyForm, AnalyticsDashboard, SurveyHistory, WellnessRecommendations
 │   │   ├── types/                 # TypeScript interfaces & state schemas
-│   │   ├── App.tsx                # Main container & dApp coordinator
-│   │   └── index.css              # Custom Glassmorphism design system & SVG constraints
+│   │   ├── App.tsx                # Main container & coordinator
+│   │   └── index.css              # Glassmorphism design system
 │   ├── package.json
 │   └── vite.config.ts
 ├── scripts/
@@ -224,10 +227,10 @@ anonymous-mental-health-survey/
 ├── src/
 │   ├── setup.ts                   # Local devnet orchestrator & contract deployment
 │   ├── deploy.ts                  # Contract deployment logic & proof-server readiness check
-│   ├── cli.ts                     # Interactive terminal CLI UI
-│   ├── network.ts                 # Network configuration & persistent state manager
-│   └── wallet.ts                  # Midnight Wallet SDK integration & seed cache
-├── tests/                         # Comprehensive unit test suite
+│   ├── cli.ts                     # Terminal CLI UI
+│   ├── network.ts                 # Network configuration manager
+│   └── wallet.ts                  # Midnight Wallet SDK integration
+├── tests/                         # Unit test suite
 │   ├── contract-assumptions.test.ts
 │   ├── network-config.test.ts
 │   ├── privacy-model.test.ts
@@ -238,15 +241,45 @@ anonymous-mental-health-survey/
 │   └── workflows/
 │       └── ci.yml                 # GitHub Actions CI/CD pipeline
 ├── docker-compose.yml             # Local Midnight devnet (node, indexer, proof-server)
-├── package.json                   # Project dependencies & root scripts
+├── package.json                   # Root package configuration
 └── README.md                      # Documentation
 ```
 
 ---
 
+## Running Locally
+
+### Prerequisites
+- **Node.js**: Node v22.0.0+ (`node -v`)
+- **npm**: npm v10+ (`npm -v`)
+- **Docker**: Docker Desktop with Docker Compose v2 (`docker compose version`)
+- **Compact Compiler**: `compact 0.5.1`
+
+### Quickstart
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Compile Compact smart contract
+npm run compile
+
+# 3. Setup local devnet & deploy contract
+npm run setup -- --network undeployed
+
+# 4. Launch web application
+npm run dev
+```
+
+The web application will open at **`http://localhost:3000`**.
+
+---
+
 ## Testing
 
-The test suite contains **9 unit tests across 5 test suites** executed via `npm test`:
+The test suite covers contract rules, network configuration, privacy models, and UI formatting.
+
+Execute tests using:
 
 ```bash
 npm test
@@ -285,88 +318,19 @@ ok 5 - Frontend Behavior & UI Logic
 
 ## CI/CD Pipeline
 
-The repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`) running on every `push` and `pull_request` to `main`/`master`:
-
-```yaml
-name: CI
-
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js 22.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - name: Install root dependencies
-        run: npm ci
-
-      - name: Install frontend dependencies
-        run: cd frontend && npm ci
-
-      - name: Verify Managed Contract Artifacts
-        run: |
-          ls -la contracts/managed/hello-world/
-          test -d contracts/managed/hello-world/contract
-
-      - name: Run Unit Tests
-        run: npm test
-
-      - name: Type-check and Build Project & Frontend
-        run: npm run build
-```
+Automated build and testing is configured via GitHub Actions (`.github/workflows/ci.yml`). Every commit and pull request verifies node dependency installation, contract compilation, unit test execution, and production bundle generation.
 
 ---
 
-## Midnight Level 1 Compliance
+## Security & Privacy
 
-| Requirement | Implementation Detail | Status |
-|---|---|---|
-| **Compact Contract** | `contracts/hello-world.compact` defines ledger variables, witness circuits, and assertions. | ✅ **VERIFIED** |
-| **Local Deployment** | `npm run setup -- --network undeployed` brings up local Docker devnet and deploys contract. | ✅ **VERIFIED** |
-| **Persistent Network State** | `.midnight-state.json` persists seeds and deployed contract addresses across network switches. | ✅ **VERIFIED** |
-| **Interactive CLI** | `npm run cli` terminal UI provides response submission, analytics viewing, and status toggling. | ✅ **VERIFIED** |
-| **Documentation** | Setup instructions, architecture overview, and privacy model documented in README. | ✅ **VERIFIED** |
+- **Client-Side Proof Generation**: Private input variables are processed locally inside the browser and proof-server sandbox. They are never sent over HTTP/RPC to any external server.
+- **Zero Identity Linkage**: Survey proofs update aggregate counts without attaching participant wallet public keys or signatures to individual response entries.
+- **Verifiable Receipts**: Downloadable JSON proof receipts allow users to verify their submission's inclusion on the Midnight ledger while maintaining strict personal privacy.
 
 ---
 
-## Midnight Level 2 Compliance
-
-| Requirement | Implementation Detail | Status |
-|---|---|---|
-| **Vite Web Frontend** | Built with React 18, Vite 5, TypeScript, and glassmorphism CSS theme in `frontend/`. | ✅ **VERIFIED** |
-| **Lace Wallet Integration** | Full wallet connect/disconnect UI, address truncation, and tNIGHT balance tracking in `Navbar.tsx`. | ✅ **VERIFIED** |
-| **Configurable Environment** | Environment variables template provided in `frontend/.env.example` and root `.env.example`. | ✅ **VERIFIED** |
-| **ZK Circuit Interaction** | Local witness construction, proof-server progress spinners, error handling, and transaction receipts in `SurveyForm.tsx`. | ✅ **VERIFIED** |
-| **Public Analytics Panel** | Real-time aggregate score meters and risk breakdown rendered in `AnalyticsDashboard.tsx`. | ✅ **VERIFIED** |
-
----
-
-## Midnight Level 3 Compliance
-
-| Requirement | Implementation Detail | Status |
-|---|---|---|
-| **Official Category Mapping** | Mapped to official category **`Anonymous Feedback / Survey`**. | ✅ **VERIFIED** |
-| **Unit Test Suite** | 9 unit tests across 5 test suites (`tests/`) testing score rules, network config, privacy disclosures, address helpers, and UI logic. | ✅ **VERIFIED** |
-| **CI/CD Pipeline** | GitHub Actions workflow `.github/workflows/ci.yml` running Node 22, Compact compiler 0.5.1, tests, and build. | ✅ **VERIFIED** |
-| **Product Proposal** | Detailed background, problem statement, solution architecture, and impact proposal included in documentation. | ✅ **VERIFIED** |
-| **Production Polish** | Clean responsive UI, SVG size constraints, 0 console errors, 14 structured git commits. | ✅ **VERIFIED** |
-
----
-
-## Future Improvements
+## Future Enhancements
 
 - 🔑 **Nullifier Registry**: Implement zero-knowledge nullifiers derived from participant identity keys to enforce 1-vote-per-person strictly.
 - 🕒 **Time-Locked Embargoes**: Add time-locked aggregate disclosure circuits for clinical trial embargo periods.
