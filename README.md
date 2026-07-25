@@ -5,6 +5,7 @@
 
 [![Midnight Protocol](https://img.shields.io/badge/Midnight-Protocol%20v4.1.1-7c3aed.svg)](https://midnight.network)
 [![Compact Compiler](https://img.shields.io/badge/Compact-v0.5.1-6366f1.svg)](https://github.com/midnightntwrk/compact)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-black.svg?logo=vercel)](https://anonymous-mental-health-survey-k9k8-7ghn2d8t0-fiem.vercel.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD-Passing-emerald.svg)](https://github.com/Suchismita40/anonymous-mental-health-survey/actions)
 
@@ -50,11 +51,13 @@ The Personalised Wellness Recommendations page generates tailored wellbeing guid
 
 ---
 
-# 🎥 Live Demo
+# 🌐 Live Demo & Deployment
+
+- 🌐 **Live Web Application**: **[https://anonymous-mental-health-survey-k9k8-7ghn2d8t0-fiem.vercel.app](https://anonymous-mental-health-survey-k9k8-7ghn2d8t0-fiem.vercel.app)**
+- ▶ **YouTube Video Demo**: **[Watch the complete project demonstration on YouTube](https://youtu.be/BSLeDq4-OzA)**
 
 Watch the complete demonstration of the Anonymous Mental Health Survey platform powered by Midnight Protocol. The demonstration showcases confidential survey submission, Zero-Knowledge proof generation, anonymous survey history, personalised wellness recommendations, and privacy-preserving healthcare analytics.
 
-▶ **[Watch the complete project demonstration on YouTube](https://youtu.be/BSLeDq4-OzA)**
 
 ---
 
