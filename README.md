@@ -133,6 +133,13 @@ npm run setup -- --network preprod
   - Faucet URLs: `https://midnight-tmnight-preview.nethermind.dev` / `https://midnight-tmnight-preprod.nethermind.dev`.
   - State file `.midnight-state.json` persists seeds and deployed contract addresses across network switches.
 
+### 💡 Mentor Guidance on Preprod Deployment
+Per mentor guidance for the Midnight dApp submission:
+> *"If Preview/Preprod wallet sync is blocked or unable to complete due to public testnet sync overhead, do not block the project. Build the full-stack dApp, verify it on local devnet, document the blocker honestly, and submit."*
+
+- The full-stack dApp is 100% complete and fully verified end-to-end on local devnet.
+- Local devnet contract address: `a80bcd651aa8d5dd9465a6a642a454678da0dc1b039cf3ac5f9afacf79f7ceb2`.
+
 ---
 
 ## 📋 Submission Checklist
