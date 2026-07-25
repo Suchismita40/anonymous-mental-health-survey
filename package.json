@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "npm --prefix frontend run dev",
     "compile": "compact compile contracts/hello-world.compact contracts/managed/hello-world",
-    "build": "npx tsc --noEmit && npm --prefix frontend run build",
+    "build": "npm --prefix frontend install && npx tsc --noEmit && npm --prefix frontend run build",
     "build:frontend": "npm --prefix frontend run build",
     "setup": "npx tsx src/setup.ts",
     "deploy": "npx tsx src/deploy.ts",
@@ -21,6 +21,10 @@
     "test": "npx tsx tests/run-all-tests.ts",
     "test:e2e": "tsx scripts/e2e-check.ts"
   },
+  "workspaces": [
+    "frontend"
+  ],
+
   "dependencies": {
     "@midnight-ntwrk/compact-runtime": "0.16.0",
     "@midnight-ntwrk/midnight-js-contracts": "4.1.1",
