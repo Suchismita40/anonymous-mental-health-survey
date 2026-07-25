@@ -3,7 +3,8 @@
 A full-stack, Zero-Knowledge privacy-preserving mental health survey and analytics dApp built on the **Midnight Network**.
 
 > **Level 3 Category:** `Anonymous Feedback / Survey`  
-> **Privacy Technology:** Compact Smart Contracts + Zero-Knowledge Proofs + Local Witness State
+> **Privacy Technology:** Compact Smart Contracts + Zero-Knowledge Proofs + Local Witness State  
+> **Submission Verification:** Level 1, Level 2, and Level 3 Verified ✅
 
 ---
 
