@@ -137,6 +137,14 @@ export const App: React.FC = () => {
   }, []);
 
   const handleConnectWallet = async () => {
+    try {
+      const midnightObj = (window as unknown as { midnight?: { lace?: { enable: () => Promise<unknown> } } }).midnight;
+      if (midnightObj?.lace?.enable) {
+        await midnightObj.lace.enable();
+      }
+    } catch (err: unknown) {
+      console.warn("Lace wallet connection request:", err);
+    }
     setWallet((prev) => ({
       ...prev,
       isConnected: true,
